@@ -1,0 +1,8 @@
+apply plugin: 'java'
+
+group = 'ch.retorte.estimator'
+version = parent.version
+
+dependencies {
+  compile project(':estimator.model')
+}

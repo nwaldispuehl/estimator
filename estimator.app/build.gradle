@@ -1,0 +1,19 @@
+apply plugin: 'java'
+
+// Apply the application plugin to add support for building an application
+apply plugin: 'application'
+
+group = 'ch.retorte.estimator'
+version = parent.version
+
+// Define the main class for the application
+mainClassName = 'ch.retorte.estimator.EstimatorApp'
+
+dependencies {
+  compile project(':estimator.model')
+  compile project(':estimator.estimate.uniform')
+  compile project(':estimator.estimate.normal')
+  compile project(':estimator.ui')
+}
+
+

@@ -1,4 +1,4 @@
-package ch.retorte.estimator.estimations;
+package ch.retorte.estimator.converter;
 
 import javafx.util.converter.NumberStringConverter;
 

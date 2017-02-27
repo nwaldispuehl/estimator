@@ -51,6 +51,34 @@ public class LocalTimeStringConverterTest {
   }
 
   @Test
+  public void shouldConvertTimeStringWithoutMinutes() {
+    // given
+    String time = "16";
+
+    // when
+    LocalTime localTime = sut.fromString(time);
+
+    // then
+    assertThat(localTime.getHour(), is(16));
+    assertThat(localTime.getMinute(), is(0));
+    assertThat(localTime.getSecond(), is(0));
+  }
+
+  @Test
+  public void shouldConvertOneDigitTimeStringWithoutMinutes() {
+    // given
+    String time = "9";
+
+    // when
+    LocalTime localTime = sut.fromString(time);
+
+    // then
+    assertThat(localTime.getHour(), is(9));
+    assertThat(localTime.getMinute(), is(0));
+    assertThat(localTime.getSecond(), is(0));
+  }
+
+  @Test
   public void shouldConvertLocalTimeToString() {
     // given
     LocalTime localTime = LocalTime.of(23, 45, 18);

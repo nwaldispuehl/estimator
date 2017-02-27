@@ -9,7 +9,6 @@ import ch.retorte.estimator.uniform.UniformEstimator;
 public class EstimatorApp {
 
   public static void main(String... args) {
-    System.out.println("STARTING");
     Ui ui = new Ui();
 
     ui.addEstimator(new UniformEstimator());

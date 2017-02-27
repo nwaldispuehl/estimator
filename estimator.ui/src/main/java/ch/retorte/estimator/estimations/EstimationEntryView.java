@@ -1,19 +1,13 @@
 package ch.retorte.estimator.estimations;
 
 import ch.retorte.estimator.Estimator;
+import ch.retorte.estimator.converter.ForgivingNumberStringConverter;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.util.StringConverter;
-import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.NumberStringConverter;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * Created by nw on 26.02.17.

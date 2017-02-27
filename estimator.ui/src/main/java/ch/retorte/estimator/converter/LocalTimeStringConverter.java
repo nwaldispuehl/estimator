@@ -15,6 +15,7 @@ public class LocalTimeStringConverter extends StringConverter<LocalTime> {
   public static final DateTimeFormatter DEFAULT_TIME_PARSER = DateTimeFormatter.ISO_LOCAL_TIME;
   public static final DateTimeFormatter DEFAULT_TIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_TIME;
 
+  private static final String PART_DELIMITER = ":";
 
   //---- Fields
 
@@ -50,6 +51,16 @@ public class LocalTimeStringConverter extends StringConverter<LocalTime> {
   @Override
   public LocalTime fromString(String string) {
     try {
+      // If only one digit is entered we add a leading zero
+      if (string.length() == 1) {
+        string = "0" + string;
+      }
+
+      // If the minutes are missing we add ':00';
+      if (!string.contains(PART_DELIMITER)) {
+        string = string + PART_DELIMITER + "00";
+      }
+
       return LocalTime.parse(string, parser);
     }
     catch (Exception e) {

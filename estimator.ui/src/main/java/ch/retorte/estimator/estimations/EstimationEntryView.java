@@ -1,6 +1,7 @@
 package ch.retorte.estimator.estimations;
 
 import ch.retorte.estimator.Estimator;
+import ch.retorte.estimator.Ui;
 import ch.retorte.estimator.converter.ForgivingNumberStringConverter;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,9 +11,8 @@ import javafx.scene.layout.GridPane;
 import javafx.util.converter.NumberStringConverter;
 
 /**
- * Created by nw on 26.02.17.
+ * Depicts a single estimation line entry.
  */
-
 public class EstimationEntryView extends GridPane {
 
   //---- Static
@@ -50,11 +50,13 @@ public class EstimationEntryView extends GridPane {
 
   private final ObservableList<Estimator> availableEstimators;
   private final EstimationEntry estimationEntry;
+  private Ui.InputChangeListener inputChangeListener;
 
 
   //---- Constructor
 
-  public EstimationEntryView(ObservableList<Estimator> availableEstimators, EstimationEntry estimationEntry) {
+  public EstimationEntryView(ObservableList<Estimator> availableEstimators, EstimationEntry estimationEntry, Ui.InputChangeListener inputChangeListener) {
+    this.inputChangeListener = inputChangeListener;
     setupLayout();
 
     this.availableEstimators = availableEstimators;
@@ -62,7 +64,6 @@ public class EstimationEntryView extends GridPane {
 
     initializeEditableFields();
     initializeReadOnlyFields();
-    initializeOperations();
   }
 
 
@@ -82,24 +83,25 @@ public class EstimationEntryView extends GridPane {
   private void initializeEditableFields() {
     // Name
     estimationEntry.nameProperty().bindBidirectional(estimationName.textProperty());
+    estimationEntry.nameProperty().addListener(inputChangeListener);
 
     // Estimator combo
     estimator.setItems(availableEstimators);
     estimator.getSelectionModel().select(0);
     estimationEntry.estimatorProperty().bind(estimator.getSelectionModel().selectedItemProperty());
+    estimationEntry.estimatorProperty().addListener(inputChangeListener);
 
     // Current value
     currentValue.textProperty().bindBidirectional(estimationEntry.currentValueProperty(), NUMBER_STRING_CONVERTER);
+    estimationEntry.currentValueProperty().addListener(inputChangeListener);
+
     availableResources.textProperty().bindBidirectional(estimationEntry.availableResourcesProperty(), NUMBER_STRING_CONVERTER);
+    estimationEntry.availableResourcesProperty().addListener(inputChangeListener);
   }
 
   private void initializeReadOnlyFields() {
     estimatedValue.textProperty().bind(estimationEntry.estimatedValueProperty().asString(DECIMAL_FORMAT));
     availableResourcesDelta.textProperty().bind(estimationEntry.availableResourcesDeltaProperty().asString(DECIMAL_FORMAT));
-  }
-
-  private void initializeOperations() {
-
   }
 
 }

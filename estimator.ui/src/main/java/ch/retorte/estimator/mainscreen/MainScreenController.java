@@ -1,6 +1,7 @@
 package ch.retorte.estimator.mainscreen;
 
 import ch.retorte.estimator.Estimator;
+import ch.retorte.estimator.Ui;
 import ch.retorte.estimator.converter.LocalTimeStringConverter;
 import ch.retorte.estimator.estimations.EstimationEntry;
 import ch.retorte.estimator.estimations.EstimationEntryView;
@@ -11,11 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.time.LocalTime;
@@ -23,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 /**
- * Created by nw on 26.02.17.
+ * Controller for the top level ui element.
  */
 public class MainScreenController implements Initializable {
 
@@ -57,9 +54,11 @@ public class MainScreenController implements Initializable {
   private ObservableList<Estimator> availableEstimators;
   private ObservableList<EstimationEntry> estimationEntries = FXCollections.observableArrayList();
 
-  private ObjectProperty<LocalTime> startTimeProperty = new SimpleObjectProperty();
-  private ObjectProperty<LocalTime> currentTimeProperty = new SimpleObjectProperty();
-  private ObjectProperty<LocalTime> endTimeProperty = new SimpleObjectProperty();
+  private ObjectProperty<LocalTime> startTimeProperty = new SimpleObjectProperty<>();
+  private ObjectProperty<LocalTime> currentTimeProperty = new SimpleObjectProperty<>();
+  private ObjectProperty<LocalTime> endTimeProperty = new SimpleObjectProperty<>();
+
+  private Ui.InputChangeListener inputChangeListener;
 
 
   //---- Methods
@@ -67,28 +66,37 @@ public class MainScreenController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     initializeAddButton();
-    initializeTimeFields();
-    initializeProgressBar();
+    initializeStartTimeField();
+    initializeCurrentTimeField();
+    initializeEndTimeField();
   }
 
+
+
+  private void initializeStartTimeField() {
+    startTime.textProperty().bindBidirectional(startTimeProperty, TIME_CONVERTER);
+
+  }
+
+  private void initializeCurrentTimeField() {
+    currentTime.textProperty().bindBidirectional(currentTimeProperty, new LocalTimeStringConverter(LocalTimeStringConverter.DEFAULT_TIME_PARSER, DateTimeFormatter.ofPattern("HH:mm:ss")));
+  }
+
+  private void initializeEndTimeField() {
+    endTime.textProperty().bindBidirectional(endTimeProperty, TIME_CONVERTER);
+
+  }
 
 
   private void initializeAddButton() {
-    addButton.setOnAction(event -> addNewEstimatorEntry());
-  }
-
-  private void initializeTimeFields() {
-    startTime.textProperty().bindBidirectional(startTimeProperty, TIME_CONVERTER);
-    currentTime.textProperty().bindBidirectional(currentTimeProperty, new LocalTimeStringConverter(LocalTimeStringConverter.DEFAULT_TIME_PARSER, DateTimeFormatter.ofPattern("HH:mm:ss")));
-    endTime.textProperty().bindBidirectional(endTimeProperty, TIME_CONVERTER);
-  }
-
-  private void initializeProgressBar() {
-//    progress.progressProperty().
+    addButton.setOnAction(event -> {
+      addNewEstimatorEntry();
+      inputChangeListener.changed(null, null, null);
+    });
   }
 
   private void addNewEstimatorEntry() {
-    EstimationEntryView estimationEntryView = new EstimationEntryView(availableEstimators, createNewEstimationEntry());
+    EstimationEntryView estimationEntryView = new EstimationEntryView(availableEstimators, createNewEstimationEntry(), inputChangeListener);
     estimationItems.getChildren().add(estimationEntryView);
   }
 
@@ -134,5 +142,18 @@ public class MainScreenController implements Initializable {
     }
   }
 
+  public void setUpdateListener(Ui.InputChangeListener inputChangeListener) {
+    this.inputChangeListener = inputChangeListener;
 
+    startTime.textProperty().addListener(inputChangeListener);
+    endTime.textProperty().addListener(inputChangeListener);
+  }
+
+  public void setData() {
+    // TODO
+  }
+
+  public void getData() {
+    // TODO
+  }
 }

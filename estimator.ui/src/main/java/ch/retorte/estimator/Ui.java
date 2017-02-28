@@ -3,6 +3,8 @@ package ch.retorte.estimator;
 import ch.retorte.estimator.mainscreen.MainScreenController;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -55,6 +57,8 @@ public class Ui extends Application {
 
   private void initializeMainScreenController() {
     mainScreenController.setAvailableEstimators(availableEstimators);
+    mainScreenController.setData();
+    mainScreenController.setUpdateListener(new InputChangeListener());
   }
 
   private void initializeUpdateTimer() {
@@ -79,5 +83,16 @@ public class Ui extends Application {
   public void stop() throws Exception {
     timer.cancel();
     super.stop();
+  }
+
+  public class InputChangeListener implements ChangeListener<Object> {
+
+    @Override
+    public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
+      // TODO persist
+      mainScreenController.refresh();
+      mainScreenController.getData();
+      System.out.println("Change");
+    }
   }
 }

@@ -2,7 +2,6 @@ package ch.retorte.estimator.estimations;
 
 import ch.retorte.estimator.Estimation;
 import ch.retorte.estimator.Estimator;
-import javafx.beans.Observable;
 import javafx.beans.property.*;
 
 /**
@@ -13,7 +12,7 @@ public class EstimationEntry {
   //---- Fields
 
   private StringProperty name = new SimpleStringProperty();
-  private ObjectProperty<Estimator> estimator = new SimpleObjectProperty();
+  private ObjectProperty<Estimator> estimator = new SimpleObjectProperty<>();
 
   private DoubleProperty currentValue = new SimpleDoubleProperty();
   private DoubleProperty estimatedValue = new SimpleDoubleProperty();
@@ -28,6 +27,17 @@ public class EstimationEntry {
     availableResourcesDelta.bind(availableResources.subtract(estimatedValue));
   }
 
+  public EstimationEntry(String name, Estimator estimator, double currentValue, double availableResources) {
+    this();
+
+    // TODO: Use data object
+
+    this.name.setValue(name);
+    this.estimator.set(estimator);
+    this.currentValue.set(currentValue);
+    this.availableResources.set(availableResources);
+  }
+
   //---- Methods
 
   public void calculateWith(int startTime, int endTime, int currentTime) {
@@ -39,27 +49,27 @@ public class EstimationEntry {
 
   //---- Properties
 
-  public StringProperty nameProperty() {
+  StringProperty nameProperty() {
     return name;
   }
 
-  public ObjectProperty<Estimator> estimatorProperty() {
+  ObjectProperty<Estimator> estimatorProperty() {
     return estimator;
   }
 
-  public DoubleProperty currentValueProperty() {
+  DoubleProperty currentValueProperty() {
     return currentValue;
   }
 
-  public DoubleProperty estimatedValueProperty() {
+  DoubleProperty estimatedValueProperty() {
     return estimatedValue;
   }
 
-  public DoubleProperty availableResourcesProperty() {
+  DoubleProperty availableResourcesProperty() {
     return availableResources;
   }
 
-  public DoubleProperty availableResourcesDeltaProperty() {
+  DoubleProperty availableResourcesDeltaProperty() {
     return availableResourcesDelta;
   }
 

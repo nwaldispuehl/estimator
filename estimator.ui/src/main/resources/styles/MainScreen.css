@@ -1,0 +1,35 @@
+#mainScreen {
+    -fx-padding: 1em;
+}
+
+
+
+#addButton {
+    -fx-font-size: 4em;
+}
+
+#timePane {
+    -fx-hgap: 2em;
+    -fx-vgap: 1em;
+}
+
+
+#startTime {
+
+}
+
+#currentTime {
+    /*-fx-background-color: wheat;*/
+    -fx-padding: 1em;
+
+
+}
+
+
+
+#endTime {
+}
+
+#progress {
+    -fx-padding: 1em 0 2em 0;
+}

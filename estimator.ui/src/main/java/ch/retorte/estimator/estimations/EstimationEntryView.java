@@ -20,6 +20,7 @@ public class EstimationEntryView extends GridPane {
   private static final String LAYOUT_FILE = "/layouts/EstimationEntry.fxml";
   private static final NumberStringConverter NUMBER_STRING_CONVERTER = new ForgivingNumberStringConverter();
 
+  private static final String DECIMAL_FORMAT = "%.1f";
 
   //---- FX Fields
 
@@ -79,18 +80,22 @@ public class EstimationEntryView extends GridPane {
   }
 
   private void initializeEditableFields() {
-    estimationName.textProperty().bindBidirectional(estimationEntry.nameProperty());
+    // Name
+    estimationEntry.nameProperty().bindBidirectional(estimationName.textProperty());
 
+    // Estimator combo
     estimator.setItems(availableEstimators);
+    estimator.getSelectionModel().select(0);
     estimationEntry.estimatorProperty().bind(estimator.getSelectionModel().selectedItemProperty());
 
+    // Current value
     currentValue.textProperty().bindBidirectional(estimationEntry.currentValueProperty(), NUMBER_STRING_CONVERTER);
     availableResources.textProperty().bindBidirectional(estimationEntry.availableResourcesProperty(), NUMBER_STRING_CONVERTER);
   }
 
   private void initializeReadOnlyFields() {
-    estimatedValue.textProperty().bind(estimationEntry.estimatedValueProperty().asString());
-    availableResourcesDelta.textProperty().bind(estimationEntry.availableResourcesDeltaProperty().asString());
+    estimatedValue.textProperty().bind(estimationEntry.estimatedValueProperty().asString(DECIMAL_FORMAT));
+    availableResourcesDelta.textProperty().bind(estimationEntry.availableResourcesDeltaProperty().asString(DECIMAL_FORMAT));
   }
 
   private void initializeOperations() {

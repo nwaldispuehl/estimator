@@ -107,8 +107,6 @@ public class MainScreenController implements Initializable {
     calculateTimeDependentFields();
   }
 
-
-
   private void calculateTimeDependentFields() {
     if (isTimeValid()) {
       int startTime = startTimeProperty.get().toSecondOfDay();

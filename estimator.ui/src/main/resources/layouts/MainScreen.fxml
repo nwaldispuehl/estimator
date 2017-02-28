@@ -11,26 +11,38 @@
 
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.VBox?>
-<BorderPane fx:id="mainScreen" fx:controller="ch.retorte.estimator.mainscreen.MainScreenController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane
+    fx:id="mainScreen"
+    xmlns:fx="http://javafx.com/fxml/1"
+    xmlns="http://javafx.com/javafx/8.0.111"
+    fx:controller="ch.retorte.estimator.mainscreen.MainScreenController"
+    prefHeight="1200.0"
+    prefWidth="1600.0"
+    stylesheets="/styles/common.css,/styles/MainScreen.css"
+>
+
+
    <top>
       <BorderPane BorderPane.alignment="CENTER">
          <right>
-            <GridPane BorderPane.alignment="CENTER">
+            <GridPane fx:id="timePane" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES"  />
-                <ColumnConstraints hgrow="SOMETIMES"  />
-                <ColumnConstraints hgrow="SOMETIMES"  />
+                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints vgrow="SOMETIMES" />
                 <RowConstraints vgrow="SOMETIMES" />
               </rowConstraints>
-              <Label text="Start time" GridPane.halignment="CENTER" />
-              <Label text="Current time" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-              <Label text="End time" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-              <Label fx:id="currentTime" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-              <TextField fx:id="startTime" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-              <TextField fx:id="endTime" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+
+              <Label text="Start" GridPane.halignment="CENTER" />
+              <Label text="Current" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+              <Label text="End" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+
+                <TextField fx:id="startTime" minWidth="120" maxWidth="180" styleClass="userInput" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                <Label fx:id="currentTime" styleClass="userOutput" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                <TextField fx:id="endTime" minWidth="120" maxWidth="180" styleClass="userInput"  GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             </GridPane>
          </right>
          <left>

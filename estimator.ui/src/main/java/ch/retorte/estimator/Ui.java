@@ -23,9 +23,6 @@ public class Ui extends Application {
 
   private static final String MAIN_SCREEN_LAYOUT_FILE = "/layouts/MainScreen.fxml";
 
-  private static final int WINDOWS_WIDTH = 1024;
-  private static final int WINDOWS_HEIGHT = 800;
-
 
   //---- Fields
 
@@ -49,7 +46,7 @@ public class Ui extends Application {
   @Override
   public void start(Stage stage) throws IOException {
     stage.setTitle("Estimator");
-    stage.setScene(getSceneWithSize(WINDOWS_WIDTH, WINDOWS_HEIGHT));
+    stage.setScene(new Scene(getRoot()));
     stage.show();
 
     initializeMainScreenController();
@@ -69,10 +66,6 @@ public class Ui extends Application {
       }
     }, 0, 1000);
 
-  }
-
-  private Scene getSceneWithSize(int width, int height) throws IOException {
-    return new Scene(getRoot(), width, height);
   }
 
   private Parent getRoot() throws IOException {

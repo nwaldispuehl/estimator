@@ -1,0 +1,13 @@
+* {
+    -fx-font-size: 2em;
+}
+
+.userInput {
+    -fx-alignment: center;
+    -fx-font-size: 2.5em;
+}
+
+.userOutput {
+    -fx-font-size: 2.5em;
+    -fx-font-weight: bold;
+}

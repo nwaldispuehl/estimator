@@ -57,7 +57,7 @@ public class Ui extends Application {
 
   private void initializeMainScreenController() {
     mainScreenController.setAvailableEstimators(availableEstimators);
-    mainScreenController.setData();
+    mainScreenController.setData(null); // TODO
     mainScreenController.setUpdateListener(new InputChangeListener());
   }
 
@@ -92,7 +92,7 @@ public class Ui extends Application {
       // TODO persist
       mainScreenController.refresh();
       mainScreenController.getData();
-      System.out.println("Change");
+      System.out.println("Persist");
     }
   }
 }

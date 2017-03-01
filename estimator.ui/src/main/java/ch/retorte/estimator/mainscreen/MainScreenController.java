@@ -3,6 +3,7 @@ package ch.retorte.estimator.mainscreen;
 import ch.retorte.estimator.Estimator;
 import ch.retorte.estimator.Ui;
 import ch.retorte.estimator.converter.LocalTimeStringConverter;
+import ch.retorte.estimator.estimations.EstimationData;
 import ch.retorte.estimator.estimations.EstimationEntry;
 import ch.retorte.estimator.estimations.EstimationEntryView;
 import javafx.beans.property.ObjectProperty;
@@ -17,7 +18,11 @@ import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Controller for the top level ui element.
@@ -87,21 +92,20 @@ public class MainScreenController implements Initializable {
 
   }
 
-
   private void initializeAddButton() {
     addButton.setOnAction(event -> {
-      addNewEstimatorEntry();
+      addNewEstimatorEntry(new EstimationData());
       inputChangeListener.changed(null, null, null);
     });
   }
 
-  private void addNewEstimatorEntry() {
-    EstimationEntryView estimationEntryView = new EstimationEntryView(availableEstimators, createNewEstimationEntry(), inputChangeListener);
+  private void addNewEstimatorEntry(EstimationData estimationData) {
+    EstimationEntryView estimationEntryView = new EstimationEntryView(availableEstimators, createNewEstimationEntryWith(estimationData), inputChangeListener);
     estimationItems.getChildren().add(estimationEntryView);
   }
 
-  private EstimationEntry createNewEstimationEntry() {
-    EstimationEntry estimationEntry = new EstimationEntry();
+  private EstimationEntry createNewEstimationEntryWith(EstimationData estimationData) {
+    EstimationEntry estimationEntry = new EstimationEntry(estimationData);
     estimationEntries.add(estimationEntry);
     return estimationEntry;
   }
@@ -149,11 +153,18 @@ public class MainScreenController implements Initializable {
     endTime.textProperty().addListener(inputChangeListener);
   }
 
-  public void setData() {
-    // TODO
+  public void setData(ApplicationData applicationData) {
+    startTimeProperty.setValue(applicationData.startTime);
+    endTimeProperty.setValue(applicationData.endTime);
+    applicationData.estimationDataList.forEach(this::addNewEstimatorEntry);
   }
 
-  public void getData() {
-    // TODO
+  public ApplicationData getData() {
+
+    return new ApplicationData(startTimeProperty.get(), endTimeProperty.get(), getEstimatorDataList());
+  }
+
+  private List<EstimationData> getEstimatorDataList() {
+    return estimationEntries.stream().map(e -> e.getData()).collect(toList());
   }
 }

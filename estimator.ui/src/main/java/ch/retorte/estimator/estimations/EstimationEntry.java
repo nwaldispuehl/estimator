@@ -27,15 +27,13 @@ public class EstimationEntry {
     availableResourcesDelta.bind(availableResources.subtract(estimatedValue));
   }
 
-  public EstimationEntry(String name, Estimator estimator, double currentValue, double availableResources) {
+  public EstimationEntry(EstimationData estimationData) {
     this();
 
-    // TODO: Use data object
-
-    this.name.setValue(name);
-    this.estimator.set(estimator);
-    this.currentValue.set(currentValue);
-    this.availableResources.set(availableResources);
+    this.name.setValue(estimationData.name);
+    this.estimator.set(estimationData.estimator);
+    this.currentValue.set(estimationData.currentValue);
+    this.availableResources.set(estimationData.availableResources);
   }
 
   //---- Methods
@@ -45,6 +43,10 @@ public class EstimationEntry {
       Estimation estimation = estimator.get().estimateTotalFrom(startTime, endTime, currentTime, currentValue.get());
       estimatedValue.set(estimation.getValue());
     }
+  }
+
+  public EstimationData getData() {
+    return new EstimationData(name.get(), estimator.get(), currentValue.get(), availableResources.get());
   }
 
   //---- Properties

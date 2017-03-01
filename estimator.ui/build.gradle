@@ -5,4 +5,5 @@ version = parent.version
 
 dependencies {
   compile project(':estimator.model')
+  compile 'com.thoughtworks.xstream:xstream:1.4.9'
 }

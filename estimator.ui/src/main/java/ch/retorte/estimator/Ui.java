@@ -61,7 +61,8 @@ public class Ui extends Application {
   }
 
   private void initializeStorage() {
-    storage = new Storage();
+    String homeDirectory = System.getProperty("user.home");
+    storage = new Storage(homeDirectory + "/");
   }
 
   private void initializeMainScreenController() {

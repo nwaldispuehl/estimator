@@ -13,7 +13,7 @@ public class LocalTimeStringConverter extends StringConverter<LocalTime> {
   //---- Static
 
   public static final DateTimeFormatter DEFAULT_TIME_PARSER = DateTimeFormatter.ISO_LOCAL_TIME;
-  public static final DateTimeFormatter DEFAULT_TIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_TIME;
+  public static final DateTimeFormatter DEFAULT_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
   private static final String PART_DELIMITER = ":";
 

@@ -30,9 +30,13 @@ public class Storage {
   /**
    * Saves the current application state to some permanent medium.
    */
-  public void save(ApplicationData applicationData) {
+  public synchronized void save(ApplicationData applicationData) {
     XStream xStream = new XStream();
     String xml = xStream.toXML(applicationData);
+
+    System.out.println();
+    System.out.println(xml);
+    System.out.println();
 
     writeToStorageFile(xml);
   }
@@ -40,7 +44,7 @@ public class Storage {
   /**
    * Retrieves the persisted application state again and returns it. If there is none null is returned.
    */
-  public ApplicationData load() {
+  public synchronized ApplicationData load() {
     if (storageFileExists()) {
       String xml = loadFromStorageFile();
 

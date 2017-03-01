@@ -31,7 +31,7 @@ public class EstimationEntry {
   public EstimationEntry(EstimationData estimationData) {
     this();
 
-    this.name.setValue(estimationData.getName());
+    this.name.set(estimationData.getName());
     this.estimator.set(estimationData.getEstimator());
     this.currentValue.set(estimationData.getCurrentValue());
     this.availableResources.set(estimationData.getAvailableResources());
@@ -41,6 +41,15 @@ public class EstimationEntry {
 
   public void calculateWith(int startTime, int endTime, int currentTime) {
     if (estimator.isNotNull().get()) {
+
+      if (endTime < startTime) {
+        endTime = startTime;
+      }
+
+      if (endTime < currentTime) {
+        currentTime = endTime;
+      }
+
       Estimation estimation = estimator.get().estimateTotalFrom(startTime, endTime, currentTime, currentValue.get());
       estimatedValue.set(estimation.getValue());
     }

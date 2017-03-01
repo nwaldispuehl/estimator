@@ -76,11 +76,8 @@ public class MainScreenController implements Initializable {
     initializeEndTimeField();
   }
 
-
-
   private void initializeStartTimeField() {
     startTime.textProperty().bindBidirectional(startTimeProperty, TIME_CONVERTER);
-
   }
 
   private void initializeCurrentTimeField() {

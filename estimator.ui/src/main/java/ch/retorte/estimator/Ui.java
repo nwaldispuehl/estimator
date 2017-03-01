@@ -1,6 +1,8 @@
 package ch.retorte.estimator;
 
 import ch.retorte.estimator.mainscreen.MainScreenController;
+import ch.retorte.estimator.storage.ApplicationData;
+import ch.retorte.estimator.storage.Storage;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -25,10 +27,11 @@ public class Ui extends Application {
 
   private static final String MAIN_SCREEN_LAYOUT_FILE = "/layouts/MainScreen.fxml";
 
+  private static ObservableList<Estimator> availableEstimators = FXCollections.observableArrayList();
 
   //---- Fields
 
-  private static ObservableList<Estimator> availableEstimators = FXCollections.observableArrayList();
+  private Storage storage;
 
   private MainScreenController mainScreenController;
 
@@ -51,13 +54,18 @@ public class Ui extends Application {
     stage.setScene(new Scene(getRoot()));
     stage.show();
 
+    initializeStorage();
     initializeMainScreenController();
     initializeUpdateTimer();
+    loadData();
+  }
+
+  private void initializeStorage() {
+    storage = new Storage();
   }
 
   private void initializeMainScreenController() {
     mainScreenController.setAvailableEstimators(availableEstimators);
-    mainScreenController.setData(null); // TODO
     mainScreenController.setUpdateListener(new InputChangeListener());
   }
 
@@ -85,14 +93,24 @@ public class Ui extends Application {
     super.stop();
   }
 
+  private void loadData() {
+    ApplicationData applicationData = storage.load();
+    if (applicationData != null) {
+      mainScreenController.setData(applicationData);
+    }
+  }
+
+  private void saveData() {
+    ApplicationData applicationData = mainScreenController.getData();
+    storage.save(applicationData);
+  }
+
   public class InputChangeListener implements ChangeListener<Object> {
 
     @Override
     public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
-      // TODO persist
       mainScreenController.refresh();
-      mainScreenController.getData();
-      System.out.println("Persist");
+      saveData();
     }
   }
 }

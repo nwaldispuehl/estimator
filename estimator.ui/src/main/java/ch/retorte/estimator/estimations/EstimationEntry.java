@@ -2,6 +2,7 @@ package ch.retorte.estimator.estimations;
 
 import ch.retorte.estimator.Estimation;
 import ch.retorte.estimator.Estimator;
+import ch.retorte.estimator.storage.EstimationData;
 import javafx.beans.property.*;
 
 /**
@@ -30,10 +31,10 @@ public class EstimationEntry {
   public EstimationEntry(EstimationData estimationData) {
     this();
 
-    this.name.setValue(estimationData.name);
-    this.estimator.set(estimationData.estimator);
-    this.currentValue.set(estimationData.currentValue);
-    this.availableResources.set(estimationData.availableResources);
+    this.name.setValue(estimationData.getName());
+    this.estimator.set(estimationData.getEstimator());
+    this.currentValue.set(estimationData.getCurrentValue());
+    this.availableResources.set(estimationData.getAvailableResources());
   }
 
   //---- Methods

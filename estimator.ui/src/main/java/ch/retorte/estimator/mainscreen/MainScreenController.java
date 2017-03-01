@@ -3,9 +3,10 @@ package ch.retorte.estimator.mainscreen;
 import ch.retorte.estimator.Estimator;
 import ch.retorte.estimator.Ui;
 import ch.retorte.estimator.converter.LocalTimeStringConverter;
-import ch.retorte.estimator.estimations.EstimationData;
+import ch.retorte.estimator.storage.EstimationData;
 import ch.retorte.estimator.estimations.EstimationEntry;
 import ch.retorte.estimator.estimations.EstimationEntryView;
+import ch.retorte.estimator.storage.ApplicationData;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -20,7 +21,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -154,17 +154,16 @@ public class MainScreenController implements Initializable {
   }
 
   public void setData(ApplicationData applicationData) {
-    startTimeProperty.setValue(applicationData.startTime);
-    endTimeProperty.setValue(applicationData.endTime);
-    applicationData.estimationDataList.forEach(this::addNewEstimatorEntry);
+    startTimeProperty.setValue(applicationData.getStartTime());
+    endTimeProperty.setValue(applicationData.getEndTime());
+    applicationData.getEstimationDataList().forEach(this::addNewEstimatorEntry);
   }
 
   public ApplicationData getData() {
-
     return new ApplicationData(startTimeProperty.get(), endTimeProperty.get(), getEstimatorDataList());
   }
 
   private List<EstimationData> getEstimatorDataList() {
-    return estimationEntries.stream().map(e -> e.getData()).collect(toList());
+    return estimationEntries.stream().map(EstimationEntry::getData).collect(toList());
   }
 }

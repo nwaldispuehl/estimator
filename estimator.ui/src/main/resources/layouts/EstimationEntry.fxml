@@ -19,7 +19,7 @@
 >
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
       <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -40,7 +40,7 @@
       <Label GridPane.columnIndex="6" />
 
       <TextField fx:id="estimationName" GridPane.rowIndex="1" />
-      <ComboBox fx:id="estimator" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <ComboBox fx:id="estimator" minWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <TextField fx:id="currentValue" styleClass="userInput" maxWidth="120" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <Label fx:id="estimatedValue" styleClass="userOutput" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
       <TextField fx:id="availableResources" styleClass="userInput" maxWidth="120" GridPane.columnIndex="4" GridPane.rowIndex="1" />

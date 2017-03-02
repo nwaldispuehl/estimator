@@ -18,10 +18,13 @@ public class Storage {
 
   private String storageFilePath;
 
-  public Storage(String homeDirectory) {
+  public Storage(String homeDirectory) throws IOException {
     File configDirectory = new File(homeDirectory + File.separator + STORAGE_DIRECTORY);
     if (!configDirectory.exists()) {
-      configDirectory.mkdirs();
+      boolean directoryCreated = configDirectory.mkdirs();
+      if (!directoryCreated) {
+        throw new IOException("Not able to create settings directory: " + configDirectory.getAbsolutePath());
+      }
     }
 
     this.storageFilePath = configDirectory.getAbsolutePath() + File.separator + STORAGE_FILE_NAME;
@@ -30,13 +33,9 @@ public class Storage {
   /**
    * Saves the current application state to some permanent medium.
    */
-  public synchronized void save(ApplicationData applicationData) {
+  public synchronized void save(ApplicationData applicationData) throws IOException {
     XStream xStream = new XStream();
     String xml = xStream.toXML(applicationData);
-
-    System.out.println();
-    System.out.println(xml);
-    System.out.println();
 
     writeToStorageFile(xml);
   }
@@ -60,13 +59,8 @@ public class Storage {
     return new File(storageFilePath).exists();
   }
 
-  private void writeToStorageFile(String content) {
-    try {
-      Files.write(Paths.get(storageFilePath), content.getBytes(), StandardOpenOption.CREATE);
-    }
-    catch (IOException e) {
-      e.printStackTrace(); // TODO
-    }
+  private void writeToStorageFile(String content) throws IOException {
+    Files.write(Paths.get(storageFilePath), content.getBytes(), StandardOpenOption.CREATE);
   }
 
   private String loadFromStorageFile() {

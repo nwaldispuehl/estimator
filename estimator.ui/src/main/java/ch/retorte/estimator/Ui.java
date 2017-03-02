@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -64,8 +65,15 @@ public class Ui extends Application {
   }
 
   private void initializeStorage() {
-    String homeDirectory = System.getProperty("user.home");
-    storage = new Storage(homeDirectory + "/");
+    try {
+      storage = new Storage(getHomeDirectory());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private String getHomeDirectory() {
+    return System.getProperty("user.home") + File.separator;
   }
 
   private void initializeMainScreenController() {
@@ -108,7 +116,11 @@ public class Ui extends Application {
   private void saveData() {
     if (dataLoaded.get()) {
       ApplicationData applicationData = mainScreenController.getData();
-      storage.save(applicationData);
+      try {
+        storage.save(applicationData);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
   }
 

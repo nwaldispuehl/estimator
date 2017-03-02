@@ -2,8 +2,6 @@
     -fx-padding: 1em;
 }
 
-
-
 #addButton {
     -fx-font-size: 4em;
 }
@@ -13,19 +11,12 @@
     -fx-vgap: 1em;
 }
 
-
 #startTime {
-
 }
 
 #currentTime {
-    /*-fx-background-color: wheat;*/
     -fx-padding: 1em;
-
-
 }
-
-
 
 #endTime {
 }

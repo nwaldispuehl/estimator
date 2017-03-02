@@ -27,7 +27,7 @@ import static java.util.stream.Collectors.toList;
 /**
  * Controller for the top level ui element.
  */
-public class MainScreenController implements Initializable {
+public class MainScreenController implements Initializable, EntryController {
 
   //---- Static
 
@@ -92,19 +92,20 @@ public class MainScreenController implements Initializable {
   private void initializeAddButton() {
     addButton.setOnAction(event -> {
       addNewEstimatorEntry(new EstimationData());
-      inputChangeListener.changed(null, null, null);
+      triggerChangeListener();
     });
   }
 
   private void addNewEstimatorEntry(EstimationData estimationData) {
-    EstimationEntryView estimationEntryView = new EstimationEntryView(availableEstimators, createNewEstimationEntryWith(estimationData), inputChangeListener);
+    EstimationEntry newEstimationEntry = createNewEstimationEntryWith(estimationData);
+    estimationEntries.add(newEstimationEntry);
+
+    EstimationEntryView estimationEntryView = new EstimationEntryView(this, availableEstimators, newEstimationEntry, inputChangeListener);
     estimationItems.getChildren().add(estimationEntryView);
   }
 
   private EstimationEntry createNewEstimationEntryWith(EstimationData estimationData) {
-    EstimationEntry estimationEntry = new EstimationEntry(estimationData);
-    estimationEntries.add(estimationEntry);
-    return estimationEntry;
+    return new EstimationEntry(estimationData);
   }
 
   public void setAvailableEstimators(ObservableList<Estimator> availableEstimators) {
@@ -162,5 +163,16 @@ public class MainScreenController implements Initializable {
 
   private List<EstimationData> getEstimatorDataList() {
     return estimationEntries.stream().map(EstimationEntry::getData).collect(toList());
+  }
+
+  @Override
+  public void delete(EstimationEntryView estimationEntryView) {
+    estimationItems.getChildren().remove(estimationEntryView);
+    estimationEntries.remove(estimationEntryView.getEntry());
+    triggerChangeListener();
+  }
+
+  private void triggerChangeListener() {
+    inputChangeListener.changed(null, null, null);
   }
 }

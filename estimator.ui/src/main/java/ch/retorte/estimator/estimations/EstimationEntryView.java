@@ -4,13 +4,13 @@ import ch.retorte.estimator.Estimator;
 import ch.retorte.estimator.Ui;
 import ch.retorte.estimator.converter.EstimatorLabelProvider;
 import ch.retorte.estimator.converter.ForgivingNumberStringConverter;
+import ch.retorte.estimator.mainscreen.EntryController;
 import com.google.common.collect.Maps;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
 
 /**
@@ -46,11 +46,12 @@ public class EstimationEntryView extends GridPane {
   private Label availableResourcesDelta;
 
   @FXML
-  private Button delete;
+  private Button deleteButton;
 
 
   //---- Fields
 
+  private EntryController entryControl;
   private final ObservableList<Estimator> availableEstimators;
   private final EstimationEntry estimationEntry;
   private Ui.InputChangeListener inputChangeListener;
@@ -58,18 +59,18 @@ public class EstimationEntryView extends GridPane {
 
   //---- Constructor
 
-  public EstimationEntryView(ObservableList<Estimator> availableEstimators, EstimationEntry estimationEntry, Ui.InputChangeListener inputChangeListener) {
-    this.inputChangeListener = inputChangeListener;
+  public EstimationEntryView(EntryController entryControl, ObservableList<Estimator> availableEstimators, EstimationEntry estimationEntry, Ui.InputChangeListener inputChangeListener) {
     setupLayout();
 
+    this.entryControl = entryControl;
     this.availableEstimators = availableEstimators;
     this.estimationEntry = estimationEntry;
+    this.inputChangeListener = inputChangeListener;
 
     initializeEditableFields();
     initializeReadOnlyFields();
+    initializeDeleteButton();
   }
-
-
 
   private void setupLayout() {
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(LAYOUT_FILE));
@@ -107,4 +108,11 @@ public class EstimationEntryView extends GridPane {
     availableResourcesDelta.textProperty().bind(estimationEntry.availableResourcesDeltaProperty().asString(DECIMAL_FORMAT));
   }
 
+  private void initializeDeleteButton() {
+    deleteButton.setOnAction(event -> entryControl.delete(this));
+  }
+
+  public EstimationEntry getEntry() {
+    return estimationEntry;
+  }
 }

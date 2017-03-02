@@ -47,7 +47,7 @@
       <Label fx:id="availableResourcesDelta" styleClass="userOutput" text="Label" GridPane.columnIndex="5" GridPane.rowIndex="1" />
 
       <VBox GridPane.columnIndex="6" GridPane.rowIndex="1">
-            <Button fx:id="delete" mnemonicParsing="false" text="Button" />
+            <Button fx:id="deleteButton" mnemonicParsing="false" text="x" />
       </VBox>
    </children>
 </fx:root>

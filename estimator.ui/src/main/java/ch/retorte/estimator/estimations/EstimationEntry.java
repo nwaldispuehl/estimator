@@ -24,12 +24,8 @@ public class EstimationEntry {
 
   //---- Constructor
 
-  public EstimationEntry() {
-    availableResourcesDelta.bind(availableResources.subtract(estimatedValue));
-  }
-
   public EstimationEntry(EstimationData estimationData) {
-    this();
+    initializeBindings();
 
     this.name.set(estimationData.getName());
     this.estimator.set(estimationData.getEstimator());
@@ -39,11 +35,19 @@ public class EstimationEntry {
 
   //---- Methods
 
+  private void initializeBindings() {
+    availableResourcesDelta.bind(availableResources.subtract(estimatedValue));
+  }
+
   public void calculateWith(int startTime, int endTime, int currentTime) {
     if (estimator.isNotNull().get()) {
 
       if (endTime < startTime) {
         endTime = startTime;
+      }
+
+      if (currentTime < startTime) {
+        currentTime = startTime;
       }
 
       if (endTime < currentTime) {

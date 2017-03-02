@@ -21,6 +21,7 @@ public class EstimationEntry {
   private DoubleProperty availableResources = new SimpleDoubleProperty();
   private DoubleProperty availableResourcesDelta = new SimpleDoubleProperty();
 
+  private StringProperty availableResourcesDeltaStyle = new SimpleStringProperty();
 
   //---- Constructor
 
@@ -57,6 +58,8 @@ public class EstimationEntry {
       Estimation estimation = estimator.get().estimateTotalFrom(startTime, endTime, currentTime, currentValue.get());
       estimatedValue.set(estimation.getValue());
     }
+
+    availableResourcesDeltaStyle.set("-fx-text-fill: red"); // TODO
   }
 
   public EstimationData getData() {
@@ -87,6 +90,10 @@ public class EstimationEntry {
 
   DoubleProperty availableResourcesDeltaProperty() {
     return availableResourcesDelta;
+  }
+
+  StringProperty getAvailableResourcesDeltaStyleProperty() {
+    return availableResourcesDeltaStyle;
   }
 
 }

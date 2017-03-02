@@ -116,6 +116,7 @@ public class EstimationEntryView extends GridPane {
   private void initializeReadOnlyFields() {
     estimatedValue.textProperty().bind(estimationEntry.estimatedValueProperty().asString(DECIMAL_FORMAT));
     availableResourcesDelta.textProperty().bind(estimationEntry.availableResourcesDeltaProperty().asString(DECIMAL_FORMAT));
+    availableResourcesDelta.styleProperty().bind(estimationEntry.getAvailableResourcesDeltaStyleProperty());
   }
 
   private void initializeDeleteButton() {

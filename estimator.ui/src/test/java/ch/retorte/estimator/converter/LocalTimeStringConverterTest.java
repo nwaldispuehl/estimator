@@ -87,7 +87,7 @@ public class LocalTimeStringConverterTest {
     String time = sut.toString(localTime);
 
     // then
-    assertThat(time, is("23:45:18"));
+    assertThat(time, is("23:45"));
   }
 
   @Test

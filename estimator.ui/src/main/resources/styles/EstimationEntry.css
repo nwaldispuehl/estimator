@@ -1,6 +1,9 @@
 #estimationEntry {
-    -fx-padding: 0 0 2em 0;
-    -fx-hgap: 2em;
-    -fx-vgap: 1em;
+    -fx-padding: .6em 0 .6em 0;
+    -fx-hgap: 1.6em;
+    -fx-vgap: 0.5em;
+
+    -fx-border-color: lightgray;
+    -fx-border-width: 1 0 0 0;
 }
 

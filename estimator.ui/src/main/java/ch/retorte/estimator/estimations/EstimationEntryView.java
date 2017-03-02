@@ -5,13 +5,16 @@ import ch.retorte.estimator.Ui;
 import ch.retorte.estimator.converter.EstimatorLabelProvider;
 import ch.retorte.estimator.converter.ForgivingNumberStringConverter;
 import ch.retorte.estimator.mainscreen.EntryController;
-import com.google.common.collect.Maps;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.util.converter.NumberStringConverter;
+
+import java.util.Map;
+
+import static com.google.common.collect.Maps.newHashMap;
 
 /**
  * Depicts a single estimation line entry.
@@ -24,6 +27,13 @@ public class EstimationEntryView extends GridPane {
   private static final NumberStringConverter NUMBER_STRING_CONVERTER = new ForgivingNumberStringConverter();
 
   private static final String DECIMAL_FORMAT = "%.1f";
+
+  private static final Map<String, String> ESTIMATOR_LABELS = newHashMap();
+
+  static {
+    ESTIMATOR_LABELS.put("uniform", "Uniform");
+    ESTIMATOR_LABELS.put("normal_sd2", "Normal (SD:2)");
+  }
 
   //---- FX Fields
 
@@ -92,7 +102,7 @@ public class EstimationEntryView extends GridPane {
     // Estimator combo
     estimator.setItems(availableEstimators);
     estimator.valueProperty().bindBidirectional(estimationEntry.estimatorProperty());
-    estimator.setConverter(new EstimatorLabelProvider(Maps.newHashMap()));
+    estimator.setConverter(new EstimatorLabelProvider(ESTIMATOR_LABELS));
     estimationEntry.estimatorProperty().addListener(inputChangeListener);
 
     // Current value

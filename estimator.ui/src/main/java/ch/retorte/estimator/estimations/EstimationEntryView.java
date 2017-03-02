@@ -2,12 +2,15 @@ package ch.retorte.estimator.estimations;
 
 import ch.retorte.estimator.Estimator;
 import ch.retorte.estimator.Ui;
+import ch.retorte.estimator.converter.EstimatorLabelProvider;
 import ch.retorte.estimator.converter.ForgivingNumberStringConverter;
+import com.google.common.collect.Maps;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
 
 /**
@@ -88,6 +91,7 @@ public class EstimationEntryView extends GridPane {
     // Estimator combo
     estimator.setItems(availableEstimators);
     estimator.valueProperty().bindBidirectional(estimationEntry.estimatorProperty());
+    estimator.setConverter(new EstimatorLabelProvider(Maps.newHashMap()));
     estimationEntry.estimatorProperty().addListener(inputChangeListener);
 
     // Current value

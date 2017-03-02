@@ -14,7 +14,7 @@
 <BorderPane
     fx:id="mainScreen"
     xmlns:fx="http://javafx.com/fxml/1"
-    xmlns="http://javafx.com/javafx/8.0.111"
+    xmlns="http://javafx.com/javafx/8.0.0"
     fx:controller="ch.retorte.estimator.mainscreen.MainScreenController"
     prefHeight="1200.0"
     prefWidth="1600.0"

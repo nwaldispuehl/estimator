@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Starting point of the user interface.
@@ -30,6 +31,8 @@ public class Ui extends Application {
   private static ObservableList<Estimator> availableEstimators = FXCollections.observableArrayList();
 
   //---- Fields
+
+  private AtomicBoolean dataLoaded = new AtomicBoolean(false);
 
   private Storage storage;
 
@@ -99,11 +102,14 @@ public class Ui extends Application {
     if (applicationData != null) {
       mainScreenController.setData(applicationData);
     }
+    dataLoaded.set(true);
   }
 
   private void saveData() {
-    ApplicationData applicationData = mainScreenController.getData();
-    storage.save(applicationData);
+    if (dataLoaded.get()) {
+      ApplicationData applicationData = mainScreenController.getData();
+      storage.save(applicationData);
+    }
   }
 
   public class InputChangeListener implements ChangeListener<Object> {

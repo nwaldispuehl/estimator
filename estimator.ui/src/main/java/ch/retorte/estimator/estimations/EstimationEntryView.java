@@ -82,13 +82,12 @@ public class EstimationEntryView extends GridPane {
 
   private void initializeEditableFields() {
     // Name
-    estimationEntry.nameProperty().bindBidirectional(estimationName.textProperty());
+    estimationName.textProperty().bindBidirectional(estimationEntry.nameProperty());
     estimationEntry.nameProperty().addListener(inputChangeListener);
 
     // Estimator combo
     estimator.setItems(availableEstimators);
-    estimator.getSelectionModel().select(0);
-    estimationEntry.estimatorProperty().bind(estimator.getSelectionModel().selectedItemProperty());
+    estimator.valueProperty().bindBidirectional(estimationEntry.estimatorProperty());
     estimationEntry.estimatorProperty().addListener(inputChangeListener);
 
     // Current value

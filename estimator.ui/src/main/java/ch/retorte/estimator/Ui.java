@@ -32,6 +32,7 @@ public class Ui extends Application {
 
   private static ObservableList<Estimator> availableEstimators = FXCollections.observableArrayList();
 
+
   //---- Fields
 
   private AtomicBoolean dataLoaded = new AtomicBoolean(false);
@@ -72,7 +73,7 @@ public class Ui extends Application {
     try {
       storage = new Storage(getHomeDirectory());
     } catch (IOException e) {
-      e.printStackTrace();
+      showError("Was not able to initialize storage.", e);
     }
   }
 
@@ -110,7 +111,14 @@ public class Ui extends Application {
   }
 
   private void loadData() {
-    ApplicationData applicationData = storage.load();
+    ApplicationData applicationData = null;
+    try {
+      applicationData = storage.load();
+    }
+    catch (IOException e) {
+      showError("Could not load data.", e);
+    }
+
     if (applicationData != null) {
       mainScreenController.setData(applicationData);
       setWindowGeometry(applicationData.getWindowGeometry());
@@ -125,7 +133,7 @@ public class Ui extends Application {
         applicationData.setWindowGeometry(getWindowGeometry());
         storage.save(applicationData);
       } catch (IOException e) {
-        e.printStackTrace();
+        showError("Could not save data.", e);
       }
     }
   }
@@ -137,6 +145,10 @@ public class Ui extends Application {
       stage.setX(windowGeometry.getX());
       stage.setY(windowGeometry.getY());
     }
+  }
+
+  private void showError(String message, Exception e) {
+    mainScreenController.showError(message, e);
   }
 
   private WindowGeometry getWindowGeometry() {

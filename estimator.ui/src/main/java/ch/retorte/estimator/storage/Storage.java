@@ -13,10 +13,20 @@ import java.nio.file.StandardOpenOption;
  */
 public class Storage {
 
+  //---- Static
+
   private static final String STORAGE_DIRECTORY = ".estimator";
   private static final String STORAGE_FILE_NAME = "currentState";
 
+
+  //---- Fields
+
+  private XStream xStream = new XStream();
+
   private String storageFilePath;
+
+
+  //---- Constructor
 
   public Storage(String homeDirectory) throws IOException {
     File configDirectory = new File(homeDirectory + File.separator + STORAGE_DIRECTORY);
@@ -30,24 +40,23 @@ public class Storage {
     this.storageFilePath = configDirectory.getAbsolutePath() + File.separator + STORAGE_FILE_NAME;
   }
 
+
+  //---- Methods
+
   /**
    * Saves the current application state to some permanent medium.
    */
   public synchronized void save(ApplicationData applicationData) throws IOException {
-    XStream xStream = new XStream();
     String xml = xStream.toXML(applicationData);
-
     writeToStorageFile(xml);
   }
 
   /**
    * Retrieves the persisted application state again and returns it. If there is none null is returned.
    */
-  public synchronized ApplicationData load() {
+  public synchronized ApplicationData load() throws IOException {
     if (storageFileExists()) {
       String xml = loadFromStorageFile();
-
-      XStream xStream = new XStream();
       return (ApplicationData) xStream.fromXML(xml);
     }
     else {
@@ -63,12 +72,7 @@ public class Storage {
     Files.write(Paths.get(storageFilePath), content.getBytes(), StandardOpenOption.CREATE);
   }
 
-  private String loadFromStorageFile() {
-    try {
+  private String loadFromStorageFile() throws IOException {
       return new String(Files.readAllBytes(Paths.get(storageFilePath)));
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return null;
   }
 }

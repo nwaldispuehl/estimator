@@ -22,6 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static ch.retorte.estimator.converter.LocalTimeStringConverter.DEFAULT_TIME_PARSER;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -81,7 +82,7 @@ public class MainScreenController implements Initializable, EntryController {
   }
 
   private void initializeCurrentTimeField() {
-    currentTime.textProperty().bindBidirectional(currentTimeProperty, new LocalTimeStringConverter(LocalTimeStringConverter.DEFAULT_TIME_PARSER, DateTimeFormatter.ofPattern("HH:mm:ss")));
+    currentTime.textProperty().bindBidirectional(currentTimeProperty, new LocalTimeStringConverter(DEFAULT_TIME_PARSER, DateTimeFormatter.ofPattern("HH:mm:ss")));
   }
 
   private void initializeEndTimeField() {
@@ -174,5 +175,14 @@ public class MainScreenController implements Initializable, EntryController {
 
   private void triggerChangeListener() {
     inputChangeListener.changed(null, null, null);
+  }
+
+  public void showError(String message, Exception e) {
+    e.printStackTrace();
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle("Error");
+    alert.setHeaderText(message);
+    alert.setContentText(e.getLocalizedMessage());
+    alert.showAndWait();
   }
 }

@@ -1,23 +1,23 @@
 * {
-    /* Scaling factor */
-    -fx-font-size: 2em;
+  /* Scaling factor */
+  -fx-font-size: 1.6em;
 
-    /* Debug: Borders around all items. */
-    /*-fx-border-width: 1;*/
-    /*-fx-border-color: dodgerblue;*/
+  /* Debug: Borders around all items. */
+  /*-fx-border-width: 1;*/
+  /*-fx-border-color: dodgerblue;*/
 }
 
 .userInput {
-    -fx-alignment: center;
-    -fx-font-size: 2.5em;
+  -fx-alignment: center;
+  -fx-font-size: 2.5em;
 }
 
 .userOutput {
-    -fx-font-size: 2.5em;
-    -fx-font-weight: bold;
+  -fx-font-size: 2.5em;
+  -fx-font-weight: bold;
 }
 
 .unobtrusive {
   -fx-font-scale: 80%;
-  -fx-text-fill: #757575;
+  -fx-text-fill: #9E9E9E;
 }

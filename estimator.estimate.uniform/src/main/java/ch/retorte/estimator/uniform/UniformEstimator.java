@@ -8,9 +8,15 @@ import ch.retorte.estimator.Estimation;
  */
 public class UniformEstimator extends AbstractEstimator {
 
+  //---- Static
+
+  private static final String ESTIMATOR_ID = "uniform";
+
+  //---- Methods
+
   @Override
   public String getId() {
-    return "uniform";
+    return ESTIMATOR_ID;
   }
 
   @Override

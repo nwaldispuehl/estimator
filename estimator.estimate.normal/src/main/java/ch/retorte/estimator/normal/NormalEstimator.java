@@ -14,12 +14,14 @@ public class NormalEstimator extends AbstractEstimator {
   private static final double NORMED_MEAN = 0.5;
   private static final double NORMED_STANDARD_DEVIATION = 1.0/4;
 
+  private static final String ESTIMATOR_ID = "normal_sd2";
+
 
   //---- Method
 
   @Override
   public String getId() {
-    return "normal_sd2";
+    return ESTIMATOR_ID;
   }
 
   @Override

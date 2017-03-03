@@ -4,7 +4,6 @@ import ch.retorte.estimator.Estimation;
 import ch.retorte.estimator.Estimator;
 import ch.retorte.estimator.storage.EstimationData;
 import javafx.beans.property.*;
-import javafx.scene.paint.Color;
 
 /**
  * Model for the single estimations.
@@ -17,7 +16,7 @@ public class EstimationEntry {
 
   private static final String DEFAULT = "black";
   private static final String GOOD = "#4CAF50";
-  private static final String WARNING = "#FFEB3B";
+  private static final String WARNING = "#FFCA28";
   private static final String BAD = "#FF9800";
   private static final String VERY_BAD = "#F44336";
 
@@ -89,7 +88,7 @@ public class EstimationEntry {
       styleDeltaWith(textColor(BAD));
     }
     else if (delta <= available * WARNING_THRESHOLD) {
-      styleDeltaWith(textColor(percentualGradientWith(WARNING, GOOD, delta / available * WARNING_THRESHOLD)));
+      styleDeltaWith(textColor(WARNING));
     }
     else {
       styleDeltaWith(textColor(GOOD));
@@ -106,45 +105,6 @@ public class EstimationEntry {
 
   private String textColor(String color) {
     return "-fx-text-fill: " + color + ";";
-  }
-
-  private String percentualGradientWith(String rgbColor1, String rgbColor2, double factor) {
-    Color c1 = Color.web(rgbColor1);
-    Color c2 = Color.web(rgbColor2);
-
-    float[] hsb1 = hsbFrom(c1);
-    float[] hsb2 = hsbFrom(c2);
-
-    float[] resultingHsb = new float[3];
-
-    for (int i = 0; i < resultingHsb.length; i++) {
-      float min = Math.min(hsb1[i], hsb2[i]);
-      float max = Math.max(hsb1[i], hsb2[i]);
-
-      resultingHsb[i] = min + ((max - min) * (float) factor);
-    }
-
-    Color result = hsbToColor(resultingHsb);
-
-    // TODO: implement
-    String resultString = toWebColor(result);
-
-    return resultString;
-  }
-
-  private float[] hsbFrom(Color c) {
-    return java.awt.Color.RGBtoHSB((int) c.getRed() * 255, (int) c.getGreen() * 255, (int) c.getBlue() * 255, null);
-  }
-
-  private Color hsbToColor(float[] hsv) {
-    return Color.hsb(hsv[0], hsv[1], hsv[2]);
-  }
-
-  private String toWebColor( Color color ) {
-    return String.format( "#%02X%02X%02X",
-        (int)( color.getRed() * 255 ),
-        (int)( color.getGreen() * 255 ),
-        (int)( color.getBlue() * 255 ) );
   }
 
   public EstimationData getData() {

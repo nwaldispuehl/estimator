@@ -30,22 +30,22 @@
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" valignment="BASELINE"/>
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" valignment="CENTER"/>
     </rowConstraints>
-    <Label text="Name"/>
-    <Label text="Distribution" GridPane.columnIndex="1"/>
-    <Label text="Current value" GridPane.columnIndex="2"/>
-    <Label text="Estimate" GridPane.columnIndex="3"/>
-    <Label text="Available resources" GridPane.columnIndex="4"/>
-    <Label text="Difference" GridPane.columnIndex="5"/>
-    <Label GridPane.columnIndex="6"/>
+    <Label text="Name" styleClass="legend"/>
+    <Label text="Distribution" styleClass="legend" GridPane.columnIndex="1"/>
+    <Label text="Current value" styleClass="legend" GridPane.columnIndex="2"/>
+    <Label text="Estimate" styleClass="legend" GridPane.columnIndex="3"/>
+    <Label text="Available resources" styleClass="legend" GridPane.columnIndex="4"/>
+    <Label text="Difference" styleClass="legend" GridPane.columnIndex="5"/>
+    <Label styleClass="legend" GridPane.columnIndex="6"/>
 
-    <TextField fx:id="estimationName" GridPane.rowIndex="1"/>
+    <TextField fx:id="estimationName"  GridPane.rowIndex="1"/>
     <ComboBox fx:id="estimator" minWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
 
     <HBox GridPane.columnIndex="2" GridPane.rowIndex="1" spacing="5" alignment="CENTER">
       <TextField fx:id="currentValue" styleClass="userInput" maxWidth="120" />
       <Label styleClass="unobtrusive" text="+"/>
-      <TextField fx:id="correctionValue" styleClass="userInput unobtrusive" maxWidth="60" />
+      <TextField fx:id="correctionValue" styleClass="unobtrusive" maxWidth="60" />
     </HBox>
 
     <Label fx:id="estimatedValue" styleClass="userOutput" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1"/>

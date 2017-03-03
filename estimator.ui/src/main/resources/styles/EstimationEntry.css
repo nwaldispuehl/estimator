@@ -1,9 +1,18 @@
 #estimationEntry {
     -fx-padding: .6em 0 .6em 0;
     -fx-hgap: 1.6em;
-    -fx-vgap: 0.5em;
+    -fx-vgap: 0.4em;
 
     -fx-border-color: lightgray;
     -fx-border-width: 1 0 0 0;
 }
 
+#estimationName {
+    -fx-font-weight: bold;
+}
+
+.legend {
+    -fx-font-scale: 66%;
+    -fx-font-style: italic;
+    -fx-text-fill: #616161;
+}

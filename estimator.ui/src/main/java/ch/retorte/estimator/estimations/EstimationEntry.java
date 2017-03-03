@@ -26,6 +26,9 @@ public class EstimationEntry {
   private ObjectProperty<Estimator> estimator = new SimpleObjectProperty<>();
 
   private DoubleProperty currentValue = new SimpleDoubleProperty();
+  private DoubleProperty correctionValue = new SimpleDoubleProperty();
+  private DoubleProperty aggregatedCurrentValue = new SimpleDoubleProperty();
+
   private DoubleProperty estimatedValue = new SimpleDoubleProperty();
 
   private DoubleProperty availableResources = new SimpleDoubleProperty();
@@ -41,6 +44,7 @@ public class EstimationEntry {
     this.name.set(estimationData.getName());
     this.estimator.set(estimationData.getEstimator());
     this.currentValue.set(estimationData.getCurrentValue());
+    this.correctionValue.set(estimationData.getCorrectionValue());
     this.availableResources.set(estimationData.getAvailableResources());
   }
 
@@ -48,6 +52,7 @@ public class EstimationEntry {
 
   private void initializeBindings() {
     availableResourcesDelta.bind(availableResources.subtract(estimatedValue));
+    aggregatedCurrentValue.bind(currentValue.add(correctionValue));
   }
 
   public void calculateWith(int startTime, int endTime, int currentTime) {
@@ -65,10 +70,10 @@ public class EstimationEntry {
         currentTime = endTime;
       }
 
-      Estimation estimation = estimator.get().estimateTotalFrom(startTime, endTime, currentTime, currentValue.get());
+      Estimation estimation = estimator.get().estimateTotalFrom(startTime, endTime, currentTime, aggregatedCurrentValue.get());
       estimatedValue.set(estimation.getValue());
 
-      updateDeltaStylingWith(currentValue.get(), availableResources.get(), availableResourcesDelta.get());
+      updateDeltaStylingWith(aggregatedCurrentValue.get(), availableResources.get(), availableResourcesDelta.get());
     }
     else {
       resetDeltaColor();
@@ -103,7 +108,7 @@ public class EstimationEntry {
   }
 
   public EstimationData getData() {
-    return new EstimationData(name.get(), estimator.get(), currentValue.get(), availableResources.get());
+    return new EstimationData(name.get(), estimator.get(), currentValue.get(), correctionValue.get(), availableResources.get());
   }
 
   //---- Properties
@@ -118,6 +123,10 @@ public class EstimationEntry {
 
   DoubleProperty currentValueProperty() {
     return currentValue;
+  }
+
+  DoubleProperty correctionValueProperty() {
+    return correctionValue;
   }
 
   DoubleProperty estimatedValueProperty() {

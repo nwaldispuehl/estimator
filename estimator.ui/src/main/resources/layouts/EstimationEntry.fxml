@@ -7,8 +7,8 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.HBox?>
 <fx:root
         xmlns="http://javafx.com/javafx/8.0.0"
         xmlns:fx="http://javafx.com/fxml/1"
@@ -40,12 +40,17 @@
 
     <TextField fx:id="estimationName" GridPane.rowIndex="1"/>
     <ComboBox fx:id="estimator" minWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-    <TextField fx:id="currentValue" styleClass="userInput" maxWidth="120" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+
+
+    <HBox GridPane.columnIndex="2" GridPane.rowIndex="1" spacing="5" alignment="CENTER">
+      <TextField fx:id="currentValue" styleClass="userInput" maxWidth="120" />
+      <Label styleClass="unobtrusive" text="+"/>
+      <TextField fx:id="correctionValue" styleClass="userInput unobtrusive" maxWidth="60" />
+    </HBox>
+
     <Label fx:id="estimatedValue" styleClass="userOutput" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
     <TextField fx:id="availableResources" styleClass="userInput" maxWidth="120" GridPane.columnIndex="4" GridPane.rowIndex="1"/>
     <Label fx:id="availableResourcesDelta" styleClass="userOutput" text="Label" GridPane.columnIndex="5" GridPane.rowIndex="1"/>
 
-    <VBox GridPane.columnIndex="6" GridPane.rowIndex="1">
-        <Button fx:id="deleteButton" mnemonicParsing="false" text="x"/>
-    </VBox>
+    <Button fx:id="deleteButton" mnemonicParsing="false" text="x" GridPane.columnIndex="6" GridPane.rowIndex="1"/>
 </fx:root>

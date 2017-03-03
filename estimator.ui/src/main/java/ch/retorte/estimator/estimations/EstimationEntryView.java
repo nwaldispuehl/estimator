@@ -47,6 +47,9 @@ public class EstimationEntryView extends GridPane {
   private TextField currentValue;
 
   @FXML
+  private TextField correctionValue;
+
+  @FXML
   private Label estimatedValue;
 
   @FXML
@@ -108,6 +111,9 @@ public class EstimationEntryView extends GridPane {
     // Current value
     currentValue.textProperty().bindBidirectional(estimationEntry.currentValueProperty(), NUMBER_STRING_CONVERTER);
     estimationEntry.currentValueProperty().addListener(inputChangeListener);
+
+    correctionValue.textProperty().bindBidirectional(estimationEntry.correctionValueProperty(), NUMBER_STRING_CONVERTER);
+    estimationEntry.correctionValueProperty().addListener(inputChangeListener);
 
     availableResources.textProperty().bindBidirectional(estimationEntry.availableResourcesProperty(), NUMBER_STRING_CONVERTER);
     estimationEntry.availableResourcesProperty().addListener(inputChangeListener);

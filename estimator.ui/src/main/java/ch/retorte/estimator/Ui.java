@@ -3,6 +3,7 @@ package ch.retorte.estimator;
 import ch.retorte.estimator.mainscreen.MainScreenController;
 import ch.retorte.estimator.storage.ApplicationData;
 import ch.retorte.estimator.storage.Storage;
+import ch.retorte.estimator.storage.WindowGeometry;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -40,6 +41,7 @@ public class Ui extends Application {
   private MainScreenController mainScreenController;
 
   private Timer timer;
+  private Stage stage;
 
 
   //---- Methods
@@ -54,6 +56,8 @@ public class Ui extends Application {
 
   @Override
   public void start(Stage stage) throws IOException {
+    this.stage = stage;
+
     stage.setTitle("Estimator");
     stage.setScene(new Scene(getRoot()));
     stage.show();
@@ -109,6 +113,7 @@ public class Ui extends Application {
     ApplicationData applicationData = storage.load();
     if (applicationData != null) {
       mainScreenController.setData(applicationData);
+      setWindowGeometry(applicationData.getWindowGeometry());
     }
     dataLoaded.set(true);
   }
@@ -117,11 +122,25 @@ public class Ui extends Application {
     if (dataLoaded.get()) {
       ApplicationData applicationData = mainScreenController.getData();
       try {
+        applicationData.setWindowGeometry(getWindowGeometry());
         storage.save(applicationData);
       } catch (IOException e) {
         e.printStackTrace();
       }
     }
+  }
+
+  private void setWindowGeometry(WindowGeometry windowGeometry) {
+    if (windowGeometry != null) {
+      stage.setWidth(windowGeometry.getWidth());
+      stage.setHeight(windowGeometry.getHeight());
+      stage.setX(windowGeometry.getX());
+      stage.setY(windowGeometry.getY());
+    }
+  }
+
+  private WindowGeometry getWindowGeometry() {
+    return new WindowGeometry(stage.getWidth(), stage.getHeight(), stage.getX(), stage.getY());
   }
 
   public class InputChangeListener implements ChangeListener<Object> {

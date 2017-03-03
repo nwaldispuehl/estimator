@@ -8,6 +8,8 @@ import java.util.List;
  */
 public class ApplicationData {
 
+  private WindowGeometry windowGeometry;
+
   private final LocalTime startTime;
   private final LocalTime endTime;
   private List<EstimationData> estimationDataList;
@@ -16,6 +18,14 @@ public class ApplicationData {
     this.startTime = startTime;
     this.endTime = endTime;
     estimationDataList = estimatorDataList;
+  }
+
+  public void setWindowGeometry(WindowGeometry windowGeometry) {
+    this.windowGeometry = windowGeometry;
+  }
+
+  public WindowGeometry getWindowGeometry() {
+    return windowGeometry;
   }
 
   public LocalTime getStartTime() {

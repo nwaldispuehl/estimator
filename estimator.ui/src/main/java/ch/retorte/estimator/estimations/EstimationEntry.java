@@ -12,7 +12,7 @@ public class EstimationEntry {
 
   //---- Static
 
-  private static final double WARNING_FACTOR = 0.05;
+  private static final double WARNING_THRESHOLD = 0.1;
 
   private static final String DEFAULT = "black";
   private static final String GOOD = "#4CAF50";
@@ -87,8 +87,8 @@ public class EstimationEntry {
     else if (delta <= 0) {
       styleDeltaWith(textColor(BAD));
     }
-    else if (delta <= available * WARNING_FACTOR) {
-      styleDeltaWith(textColor(WARNING));
+    else if (delta <= available * WARNING_THRESHOLD) {
+      styleDeltaWith(textColor(percentualGradientWith(WARNING, GOOD, delta / available * WARNING_THRESHOLD)));
     }
     else {
       styleDeltaWith(textColor(GOOD));
@@ -105,6 +105,13 @@ public class EstimationEntry {
 
   private String textColor(String color) {
     return "-fx-text-fill: " + color + ";";
+  }
+
+  private String percentualGradientWith(String rgbColor1, String rgbColor2, double factor) {
+
+    // TODO: implement
+
+    return rgbColor1;
   }
 
   public EstimationData getData() {

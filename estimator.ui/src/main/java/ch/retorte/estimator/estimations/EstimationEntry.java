@@ -10,6 +10,16 @@ import javafx.beans.property.*;
  */
 public class EstimationEntry {
 
+  //---- Static
+
+  private static final double WARNING_FACTOR = 0.05;
+
+  private static final String DEFAULT = "black";
+  private static final String GOOD = "#4CAF50";
+  private static final String WARNING = "#FFEB3B";
+  private static final String BAD = "#FF9800";
+  private static final String VERY_BAD = "#F44336";
+
   //---- Fields
 
   private StringProperty name = new SimpleStringProperty();
@@ -57,9 +67,39 @@ public class EstimationEntry {
 
       Estimation estimation = estimator.get().estimateTotalFrom(startTime, endTime, currentTime, currentValue.get());
       estimatedValue.set(estimation.getValue());
-    }
 
-    availableResourcesDeltaStyle.set("-fx-text-fill: red"); // TODO
+      updateDeltaStylingWith(currentValue.get(), availableResources.get(), availableResourcesDelta.get());
+    }
+    else {
+      resetDeltaColor();
+    }
+  }
+
+  private void updateDeltaStylingWith(double current, double available, double delta) {
+    if (available < current) {
+      styleDeltaWith(textColor(VERY_BAD));
+    }
+    else if (delta <= 0) {
+      styleDeltaWith(textColor(BAD));
+    }
+    else if (delta <= available * WARNING_FACTOR) {
+      styleDeltaWith(textColor(WARNING));
+    }
+    else {
+      styleDeltaWith(textColor(GOOD));
+    }
+  }
+
+  private void resetDeltaColor() {
+    styleDeltaWith(textColor(DEFAULT));
+  }
+
+  private void styleDeltaWith(String style) {
+    availableResourcesDeltaStyle.set(style);
+  }
+
+  private String textColor(String color) {
+    return "-fx-text-fill: " + color + ";";
   }
 
   public EstimationData getData() {

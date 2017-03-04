@@ -9,7 +9,6 @@ public abstract class AbstractEstimator implements Estimator {
 
   @Override
   public final Estimation estimateTotalFrom(int startTime, int endTime, int currentTime, double currentValue) {
-
     validateEndTimeIsAfterStartTime(startTime, endTime);
     validateCurrentTimeIsInTimeFrame(startTime, endTime, currentTime);
 

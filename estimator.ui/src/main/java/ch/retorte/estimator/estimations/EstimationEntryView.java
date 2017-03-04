@@ -33,6 +33,7 @@ public class EstimationEntryView extends GridPane {
   static {
     ESTIMATOR_LABELS.put("uniform", "Uniform");
     ESTIMATOR_LABELS.put("normal_sd2", "Normal (SD:2)");
+    ESTIMATOR_LABELS.put("normal_sd3", "Normal (SD:3)");
   }
 
   //---- FX Fields

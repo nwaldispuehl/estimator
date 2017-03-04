@@ -5,24 +5,22 @@ import ch.retorte.estimator.Estimation;
 import org.apache.commons.math3.distribution.NormalDistribution;
 
 /**
- * Assuming samples are normal distributed, tries to predict number of items at the end of a time period based on the number of items at some given point in time.
+ * This {@link NormalEstimator} is a base class for all normal distributions being normed to the [0, 1] range with mu = 0.5.
  */
-public class NormalEstimator extends AbstractEstimator {
+public abstract class NormalEstimator extends AbstractEstimator {
 
   //---- Static
 
   private static final double NORMED_MEAN = 0.5;
-  private static final double NORMED_STANDARD_DEVIATION = 1.0/4;
 
-  private static final String ESTIMATOR_ID = "normal_sd2";
 
 
   //---- Method
 
-  @Override
-  public String getId() {
-    return ESTIMATOR_ID;
-  }
+  /**
+   * Returns the SD to be used in the normal distribution with mean of 0.5.
+   */
+  abstract double getStandardDeviation();
 
   @Override
   public Estimation validatedEstimateTotalFrom(int startTime, int endTime, int currentTime, double currentValue) {
@@ -46,11 +44,10 @@ public class NormalEstimator extends AbstractEstimator {
   }
 
   /**
-   * This normal distribution is 'normalized' in the sense that 95.4% (i.e. mu +- 2 * sigma, resp. mean +- 2 * the standard deviation)
-   * of all values are in the [0,1] range.
+   * This normal distribution is 'normalized' in the sense that we only consider the [0, 1] range.
    */
   private NormalDistribution normalizedNormalDistribution() {
-    return new NormalDistribution(NORMED_MEAN, NORMED_STANDARD_DEVIATION);
+    return new NormalDistribution(NORMED_MEAN, getStandardDeviation());
   }
 
 

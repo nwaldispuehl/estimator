@@ -72,7 +72,7 @@ public class Ui extends Application {
   private void initializeStorage() {
     try {
       storage = new Storage(getHomeDirectory());
-    } catch (IOException e) {
+    } catch (Exception e) {
       showError("Was not able to initialize storage.", e);
     }
   }
@@ -115,7 +115,7 @@ public class Ui extends Application {
     try {
       applicationData = storage.load();
     }
-    catch (IOException e) {
+    catch (Exception e) {
       showError("Could not load data.", e);
     }
 
@@ -132,7 +132,7 @@ public class Ui extends Application {
       try {
         applicationData.setWindowGeometry(getWindowGeometry());
         storage.save(applicationData);
-      } catch (IOException e) {
+      } catch (Exception e) {
         showError("Could not save data.", e);
       }
     }

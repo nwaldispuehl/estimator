@@ -47,7 +47,14 @@ public abstract class NormalEstimator extends AbstractEstimator {
    * This normal distribution is 'normalized' in the sense that we only consider the [0, 1] range.
    */
   private NormalDistribution normalizedNormalDistribution() {
-    return new NormalDistribution(NORMED_MEAN, getStandardDeviation());
+    return new NormalDistribution(NORMED_MEAN, getNormedStandardDeviation());
+  }
+
+  /**
+   * We norm the standard deviation to fit in our observed [0, 1] range.
+   */
+  private double getNormedStandardDeviation() {
+    return 1.0 / (2 * getStandardDeviation());
   }
 
 

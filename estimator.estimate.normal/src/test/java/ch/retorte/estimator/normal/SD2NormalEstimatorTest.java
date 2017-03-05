@@ -6,9 +6,9 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Unit tests for the {@link NormalEstimator}.
+ * Unit tests for the {@link SD2NormalEstimator}.
  */
-public class NormalEstimatorTest {
+public class SD2NormalEstimatorTest {
 
   //---- Static
 
@@ -18,7 +18,7 @@ public class NormalEstimatorTest {
 
   //---- Fields
 
-  private NormalEstimator sut = new NormalEstimator();
+  private NormalEstimator sut = new SD2NormalEstimator();
 
 
   //---- Methods
@@ -33,6 +33,9 @@ public class NormalEstimatorTest {
 
     // mu - 2 sigma (2.275 % of the data outside, we round up to reach 100)
     assertThat((int) sut.estimateTotalFrom(START, END, 0, 2.276).getValue(), is(100));
+
+    // mu + 2 sigma (should contain 97.725% of all the data)
+    assertThat((int) sut.estimateTotalFrom(START, END, END, 97.725).getValue(), is(100));
   }
 
   @Test

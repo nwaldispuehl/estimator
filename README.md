@@ -28,17 +28,27 @@ The software currently supports these distributions:
 
 ### Uniform
 
-[todo]
+The uniform distribution assumes linear growth:
+
+<img src="https://github.com/nwaldispuehl/estimator/raw/master/footage/plot_uniform_cdf_x.png" alt="uniform cdf" width="500" />
 
 ### Normal
 
+Two 'flavours' of normal distributions are provided.
+
 #### SD 2
 
-[todo]
+The normal distribution with standard deviation 2 only covers around 95% of all events (thus cutting the earliest and last 2.5%). It models real world events better than the more accurate variant below.
+
+<img src="https://github.com/nwaldispuehl/estimator/raw/master/footage/plot_normal_cdf_0.25.png" alt="normal sd 2 cdf" width="500" />
+
+Note that we only consider the range in `[0, 1]`.
 
 #### SD 3
 
-[todo]
+Normal distribution with a standard deviation of 3.
+
+<img src="https://github.com/nwaldispuehl/estimator/raw/master/footage/plot_normal_cdf_0.17.png" alt="normal sd 3 cdf" width="500" />
 
 ## How to use?
 

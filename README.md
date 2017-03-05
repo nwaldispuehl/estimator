@@ -18,9 +18,9 @@ We now have a known time frame (`[t_start, t_end]`) and we also know how many ev
 
 This is what the Estimator does.
 
-![Estimator screenshot](https://github.com/nwaldispuehl/estimator/raw/master/footage/estimator_screenshot.png)
+## Screenshot
 
-[todo]
+![Estimator screenshot](https://github.com/nwaldispuehl/estimator/raw/master/footage/estimator_screenshot.png)
 
 ## Supported distributions
 

@@ -16,7 +16,9 @@ We now have a known time frame (`[t_start, t_end]`) and we also know how many ev
  
 <img src="https://github.com/nwaldispuehl/estimator/raw/master/footage/cdf_estimation.png" alt="estimation" width="500" />
 
-## Screenshot
+This is what the Estimator does.
+
+![Estimator screenshot](https://github.com/nwaldispuehl/estimator/raw/master/footage/estimator_screenshot.png)
 
 [todo]
 

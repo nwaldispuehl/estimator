@@ -3,3 +3,10 @@ jdk:
   - oraclejdk8
 notifications:
   email: false
+
+# This is needed to get a jdk > 1.8.0_60 needed for the JavaFX parts.
+sudo: false
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer

@@ -4,17 +4,17 @@ Estimates how many times some event occurs at the end of a time frame based on h
 
 ## Introduction
 
-In a give time frame (`[t_start, t_end]`) we have a number of events which we assume happen based on a given distribution, for example a [normal distribution](https://en.wikipedia.org/wiki/Normal_distribution). Their occurrence at some time (`t_i`) is reflected in [probability density function (PDF)](https://en.wikipedia.org/wiki/Probability_density_function) as shown here:
+In a give time frame (`[t_start, t_end]`) we have a number of events which we assume happen based on a given distribution, for example a [normal distribution](https://en.wikipedia.org/wiki/Normal_distribution). Their occurrence at some time (`t_i`) is reflected in a [probability density function (PDF)](https://en.wikipedia.org/wiki/Probability_density_function) as shown here:
 
-<img src="https://github.com/nwaldispuehl/estimator/raw/master/footage/pdf.png" alt="probability density function" style="max-width: 700px;" />
+<img src="https://github.com/nwaldispuehl/estimator/raw/master/footage/pdf.png" alt="probability density function" width="500" />
 
 The total number of events who have occurred so far at a given time (`t_i`) is reflected in the [cumulative distribution function (CDF)](https://en.wikipedia.org/wiki/Cumulative_distribution_function) - which is just an integration over the PDF - as depicted here:
 
-<img src="https://github.com/nwaldispuehl/estimator/raw/master/footage/cdf.png" alt="cumulative density function" style="max-width: 700px;" />
+<img src="https://github.com/nwaldispuehl/estimator/raw/master/footage/cdf.png" alt="cumulative density function" width="500" />
 
 We now have a known time frame (`[t_start, t_end]`) and we also know how many events have occurred so far at some point in time (`t_i`) and we assume some distribution. We now want to estimate how many events there will be at the end of the time frame:
  
-<img src="https://github.com/nwaldispuehl/estimator/raw/master/footage/cdf_estimation.png" alt="estimation" style="max-width: 700px;" />
+<img src="https://github.com/nwaldispuehl/estimator/raw/master/footage/cdf_estimation.png" alt="estimation" width="500" />
 
 ## Screenshot
 

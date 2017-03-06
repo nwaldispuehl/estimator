@@ -4,7 +4,7 @@ Estimates how many times some event occurs at the end of a time frame based on h
 
 ## Introduction
 
-In a give time frame (`[t_start, t_end]`) we have a number of events which we assume happen based on a given distribution, for example a [normal distribution](https://en.wikipedia.org/wiki/Normal_distribution). Their occurrence at some time (`t_i`) is reflected in a [probability density function (PDF)](https://en.wikipedia.org/wiki/Probability_density_function) as shown here:
+In a given time frame (`[t_start, t_end]`) we have a number of events which we assume happen based on a given distribution, for example a [normal distribution](https://en.wikipedia.org/wiki/Normal_distribution). Their occurrence probability at some time (`t_i`) is reflected in a [probability density function (PDF)](https://en.wikipedia.org/wiki/Probability_density_function) as shown here:
 
 <img src="https://github.com/nwaldispuehl/estimator/raw/master/footage/pdf.png" alt="probability density function" width="500" />
 

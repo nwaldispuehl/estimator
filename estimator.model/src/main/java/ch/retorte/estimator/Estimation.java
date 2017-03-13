@@ -20,4 +20,9 @@ public class Estimation {
   public double getError() {
     return error;
   }
+
+  @Override
+  public String toString() {
+    return "[" + value + ", " + error + "]";
+  }
 }

@@ -14,13 +14,15 @@ public abstract class NormalEstimator extends AbstractEstimator {
   private static final double NORMED_MEAN = 0.5;
 
 
-
-  //---- Method
+  //---- Abstract Method
 
   /**
    * Returns the SD to be used in the normal distribution with mean of 0.5.
    */
   abstract double getStandardDeviation();
+
+
+  //---- Method
 
   @Override
   public Estimation validatedEstimateTotalFrom(int startTime, int endTime, int currentTime, double currentValue) {

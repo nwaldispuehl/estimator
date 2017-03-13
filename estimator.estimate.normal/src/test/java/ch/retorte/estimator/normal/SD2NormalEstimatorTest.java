@@ -1,5 +1,6 @@
 package ch.retorte.estimator.normal;
 
+import ch.retorte.estimator.Estimator;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -18,7 +19,7 @@ public class SD2NormalEstimatorTest {
 
   //---- Fields
 
-  private NormalEstimator sut = new SD2NormalEstimator();
+  private Estimator sut = new SD2NormalEstimator();
 
 
   //---- Methods

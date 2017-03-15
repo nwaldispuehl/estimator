@@ -108,6 +108,8 @@ public class EstimationEntryView extends GridPane {
     estimator.valueProperty().bindBidirectional(estimationEntry.estimatorProperty());
     estimator.setConverter(new EstimatorLabelProvider(ESTIMATOR_LABELS));
     estimationEntry.estimatorProperty().addListener(inputChangeListener);
+    // Initialize with first distribution
+    estimationEntry.estimatorProperty().setValue(availableEstimators.get(0));
 
     // Current value
     currentValue.textProperty().bindBidirectional(estimationEntry.currentValueProperty(), NUMBER_STRING_CONVERTER);

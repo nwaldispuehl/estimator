@@ -17,27 +17,25 @@ public class Storage {
 
   private static final String STORAGE_DIRECTORY = ".estimator";
   private static final String STORAGE_FILE_NAME = "currentState";
+  private static final String VERSION_PREFIX = ".V";
 
 
   //---- Fields
 
   private XStream xStream = new XStream();
-
-  private String storageFilePath;
+  private File configDirectory;
 
 
   //---- Constructor
 
   public Storage(String homeDirectory) throws IOException {
-    File configDirectory = new File(homeDirectory + File.separator + STORAGE_DIRECTORY);
+    configDirectory = new File(homeDirectory + File.separator + STORAGE_DIRECTORY);
     if (!configDirectory.exists()) {
       boolean directoryCreated = configDirectory.mkdirs();
       if (!directoryCreated) {
         throw new IOException("Not able to create settings directory: " + configDirectory.getAbsolutePath());
       }
     }
-
-    this.storageFilePath = configDirectory.getAbsolutePath() + File.separator + STORAGE_FILE_NAME;
   }
 
 
@@ -48,7 +46,7 @@ public class Storage {
    */
   public synchronized void save(ApplicationData applicationData) throws IOException {
     String xml = xStream.toXML(applicationData);
-    writeToStorageFile(xml);
+    writeToStorageFile(ApplicationData.DATA_FORMAT_VERSION, xml);
   }
 
   /**
@@ -56,7 +54,7 @@ public class Storage {
    */
   public synchronized ApplicationData load() throws IOException {
     if (storageFileExists()) {
-      String xml = loadFromStorageFile();
+      String xml = loadFromStorageFile(ApplicationData.DATA_FORMAT_VERSION);
       return (ApplicationData) xStream.fromXML(xml);
     }
     else {
@@ -65,14 +63,18 @@ public class Storage {
   }
 
   private boolean storageFileExists() {
-    return new File(storageFilePath).exists();
+    return getStorageFileWith(ApplicationData.DATA_FORMAT_VERSION).exists();
   }
 
-  private void writeToStorageFile(String content) throws IOException {
-    Files.write(Paths.get(storageFilePath), content.getBytes(), StandardOpenOption.CREATE);
+  private File getStorageFileWith(int dataformatVersion) {
+    return new File(configDirectory.getAbsolutePath() + File.separator + STORAGE_FILE_NAME + VERSION_PREFIX + String.valueOf(dataformatVersion));
   }
 
-  private String loadFromStorageFile() throws IOException {
-      return new String(Files.readAllBytes(Paths.get(storageFilePath)));
+  private void writeToStorageFile(int dataformatVersion, String content) throws IOException {
+    Files.write(getStorageFileWith(dataformatVersion).toPath(), content.getBytes(), StandardOpenOption.CREATE);
+  }
+
+  private String loadFromStorageFile(int dataformatVersion) throws IOException {
+      return new String(Files.readAllBytes(getStorageFileWith(dataformatVersion).toPath()));
   }
 }

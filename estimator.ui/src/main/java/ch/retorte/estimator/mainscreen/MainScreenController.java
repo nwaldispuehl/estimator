@@ -179,10 +179,12 @@ public class MainScreenController implements Initializable, EntryController {
 
   public void showError(String message, Exception e) {
     e.printStackTrace();
+    
     Alert alert = new Alert(Alert.AlertType.ERROR);
     alert.setTitle("Error");
     alert.setHeaderText(message);
     alert.setContentText(e.getLocalizedMessage());
+    alert.setResizable(true);
     alert.showAndWait();
   }
 }

@@ -101,8 +101,12 @@ public class MainScreenController implements Initializable, EntryController {
     EstimationEntry newEstimationEntry = createNewEstimationEntryWith(estimationData);
     estimationEntries.add(newEstimationEntry);
 
-    EstimationEntryView estimationEntryView = new EstimationEntryView(this, availableEstimators, newEstimationEntry, inputChangeListener);
+    EstimationEntryView estimationEntryView = new EstimationEntryView(this, availableEstimators, newEstimationEntry, inputChangeListener, isFirst());
     estimationItems.getChildren().add(estimationEntryView);
+  }
+
+  private boolean isFirst() {
+    return estimationItems.getChildren().isEmpty();
   }
 
   private EstimationEntry createNewEstimationEntryWith(EstimationData estimationData) {

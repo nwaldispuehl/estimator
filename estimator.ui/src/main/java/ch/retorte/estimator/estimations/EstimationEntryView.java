@@ -39,6 +39,27 @@ public class EstimationEntryView extends GridPane {
   //---- FX Fields
 
   @FXML
+  private Label nameLabel;
+
+  @FXML
+  private Label distributionLabel;
+
+  @FXML
+  private Label currentValueLabel;
+
+  @FXML
+  private Label estimateLabel;
+
+  @FXML
+  private Label availableResourcesLabel;
+
+  @FXML
+  private Label availableResourcesDeltaLabel;
+
+  @FXML
+  private Label actionsLabel;
+
+  @FXML
   private TextField estimationName;
 
   @FXML
@@ -73,7 +94,7 @@ public class EstimationEntryView extends GridPane {
 
   //---- Constructor
 
-  public EstimationEntryView(EntryController entryControl, ObservableList<Estimator> availableEstimators, EstimationEntry estimationEntry, Ui.InputChangeListener inputChangeListener) {
+  public EstimationEntryView(EntryController entryControl, ObservableList<Estimator> availableEstimators, EstimationEntry estimationEntry, Ui.InputChangeListener inputChangeListener, boolean first) {
     setupLayout();
 
     this.entryControl = entryControl;
@@ -81,9 +102,20 @@ public class EstimationEntryView extends GridPane {
     this.estimationEntry = estimationEntry;
     this.inputChangeListener = inputChangeListener;
 
+    initializeLabels(first);
     initializeEditableFields();
     initializeReadOnlyFields();
     initializeDeleteButton();
+  }
+
+  private void initializeLabels(boolean first) {
+    nameLabel.setManaged(first);
+    distributionLabel.setManaged(first);
+    currentValueLabel.setManaged(first);
+    estimateLabel.setManaged(first);
+    availableResourcesLabel.setManaged(first);
+    availableResourcesDeltaLabel.setManaged(first);
+    actionsLabel.setManaged(first);
   }
 
   private void setupLayout() {

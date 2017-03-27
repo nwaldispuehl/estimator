@@ -6,6 +6,8 @@ import ch.retorte.estimator.storage.Storage;
 import ch.retorte.estimator.storage.WindowGeometry;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -13,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.*;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -44,6 +47,9 @@ public class Ui extends Application {
   private Timer timer;
   private Stage stage;
 
+  private SimpleBooleanProperty ctrlPressed = new SimpleBooleanProperty(false);
+  private SimpleIntegerProperty zoom = new SimpleIntegerProperty(100);
+
 
   //---- Methods
 
@@ -60,13 +66,56 @@ public class Ui extends Application {
     this.stage = stage;
 
     stage.setTitle("Estimator");
-    stage.setScene(new Scene(getRoot()));
+    stage.setScene(createScene());
     stage.show();
 
     initializeStorage();
     initializeMainScreenController();
     initializeUpdateTimer();
     loadData();
+  }
+
+  private Scene createScene() throws IOException {
+    Scene scene = new Scene(getRoot());
+    addEventListenersTo(scene);
+    return scene;
+  }
+
+  private void addEventListenersTo(Scene scene) {
+    scene.setOnKeyPressed(this::updateCtrlKeyWith);
+    scene.setOnKeyReleased(keyEvent -> {
+      updateCtrlKeyWith(keyEvent);
+      if (keyEvent.isControlDown() && keyEvent.getCode().equals(KeyCode.DIGIT0)) {
+        zoom.set(100);
+      }
+    });
+
+    scene.setOnScroll(scrollEvent -> {
+      if (ctrlPressed.get()) {
+        if (isUpScrolling(scrollEvent)) {
+          if (zoom.get() < 200) {
+            zoom.set(zoom.get() + 5);
+          }
+        }
+        else {
+          if (25 < zoom.get()) {
+            zoom.set(zoom.get() - 5);
+          }
+        }
+      }
+    });
+
+    zoom.addListener(observable -> {
+      // TODO: update zoom factor in ui
+    });
+  }
+
+  private void updateCtrlKeyWith(KeyEvent keyEvent) {
+    ctrlPressed.set(keyEvent.isControlDown());
+  }
+
+  private boolean isUpScrolling(ScrollEvent scrollEvent) {
+    return 0 < scrollEvent.getDeltaY();
   }
 
   private void initializeStorage() {

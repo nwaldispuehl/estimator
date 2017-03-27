@@ -9,11 +9,11 @@
 
 .userInput {
   -fx-alignment: center;
-  -fx-font-size: 2.5em;
+  -fx-font-size: 2.3em;
 }
 
 .userOutput {
-  -fx-font-size: 2.5em;
+  -fx-font-size: 2.3em;
   -fx-font-weight: bold;
 }
 
